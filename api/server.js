@@ -17,6 +17,13 @@ const router = jsonServer.router('db.json')
 const middlewares = jsonServer.defaults()
 
 server.use(middlewares)
+
+// Add delay middleware
+server.use((req, res, next) => {
+    console.log("checking response time")
+    setTimeout(() => next(), 5000) // 5 seconds delay
+})
+
 // Add this before server.use(router)
 server.use(jsonServer.rewriter({
     '/api/*': '/$1',
